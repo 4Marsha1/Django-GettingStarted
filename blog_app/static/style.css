@@ -1,0 +1,29 @@
+body {
+	background-color: #ccc;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
+}
+.container {
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem 0;
+	margin: 1rem;
+	font-size: 2rem;
+	font-weight: bold;
+}
+.blogs {
+	display: flex;
+	flex-direction: column;
+}
+.blog {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	margin: 1rem;
+	padding: 2rem 4rem;
+}
+.title {
+	font-size: 1.5rem;
+}

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTL</title>
+    <link rel="stylesheet" href="{% static 'styles.css'%}">
+</head>
+<body>
+    <h1>
+        Django Template Language
+    </h1>
+    <h2>{{user.username}}</h2>
+
+    {% if user.is_authenticated%}
+    <a href="logout"> Logout</a>
+    {% else %}
+    <a href="login">Login or Signup</a>
+    {% endif%}
+
+    {% for feature in features %}
+    <h2>{{feature.id}}</h2>
+    <h2>{{feature.name}}</h2>
+    <h2>{{feature.details}}</h2>
+    {% endfor %}
+
+    <form method="POST" action="counter" style="display: flex; flex-direction:column;gap:2rem">
+        {%csrf_token %}
+        <span>Input your text here: </span>
+        <textarea name="words" rows="30"></textarea>
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+</head>
+<script>
+    $(document).ready(function () {
+
+        setInterval(function () {
+            $.ajax({
+                type: 'GET',
+                url: "/getMessages/{{room}}/",
+                success: function (response) {
+                    console.log(response);
+                    $("#display").empty();
+                    for (var key in response.messages) {
+                        var temp = "<div style='border: 1px solid black'><b>" + response.messages[key].user + "</b><p>" + response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date + "</span></div>";
+                        $("#display").append(temp);
+                    }
+                },
+                error: function (response) {
+                    alert('An error occured')
+                }
+            });
+        }, 1000);
+    })
+</script>
+<body>
+    <h1>Room Name: {{room}}</h1>
+
+    <div id="display"></div>
+
+    <form id="form" method="POST">
+        {%csrf_token%}
+        <input type="hidden" id="username" name="username" value="{{username}}">
+        <input type="hidden" id="room_id" name="room_id" value="{{room_details.id}}">
+        <input type="text" id="message" name="message">
+        <input type="submit" value="Send Message">
+    </form>
+
+    <script type="text/javascript">
+        $(document).on('submit', '#form', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/send',
+                data: {
+                    username: $('#username').val(),
+                    room_id: $('#room_id').val(),
+                    message: $('#message').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (data) {
+                    //alert(data)
+                }
+            });
+            document.getElementById('message').value = ''
+        });
+    </script>
+</body>
+</html>

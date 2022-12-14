@@ -1,0 +1,19 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+    <title>Chat App</title>
+</head>
+<body>
+    <form action="checkView" method="POST">
+        {% csrf_token %}
+        <input type="text" name="room" placeholder="Room Name">
+        <input type="text" name="username" placeholder="User Name">
+        <input type="submit" value="Enter Room">
+    </form>
+</body>
+</html>
